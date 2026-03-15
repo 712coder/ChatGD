@@ -1,4 +1,9 @@
 # ChatGD Changelog
+## v1.1.0
+- improved ui heavily
+- added more messages and users
+
+
 ## v1.0.1
 - Removed debug logs
 - Fixed readme
