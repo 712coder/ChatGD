@@ -5,14 +5,14 @@
 
 using namespace geode::prelude;
 
-static const std::vector<std::string> GD_PLAYERS = {
+static std::vector<std::string> GD_PLAYERS = {
     // Streamers
     "Michigun", "Viprin", "Riot", "Juniper", "Wulzy",
     "EVW", "Doggie", "Nexus", "AeonAir", "Tride",
     "Cyclic", "Knobbelboy", "Sunix", "Technical49", "Dorami",
     "SpaceUK", "Diamond", "Trick", "Zoink", "Nswish",
     "Cursed", "BlassCFB", "MiKhaXx", "Mullsy", "Luqualizer",
-    "Npesta", "xanii", "BTD6", "GuitarHeroStyles", "Cataclysm",
+    "Npesta", "xanii", "BTD6", "Cataclysm",
     "Krazyman50", "Zobros", "Sea1997", "Pennutoh", "FunnyGame",
     "TrusTa", "RicoLP", "ViPriN", "ChaSe", "Lemons",
     "Vortrox",
@@ -20,6 +20,7 @@ static const std::vector<std::string> GD_PLAYERS = {
     "Axiom", "Human", "siniNight"
 };
 
+// static std::vector<bool> hasSpoken;
 static const float CHAT_WIDTH = 155.0f;
 static const float CHAT_HEIGHT = 190.0f;
 static const float HEADER_HEIGHT = 16.0f;
@@ -547,6 +548,16 @@ public:
                 fields->m_randomChatTimer = 0;
                 fields->m_nextChatDelay = 0.1f + (rand() % 3) / 10.0f;
             }
+        } else {
+            fields->m_randomChatTimer += dt;
+            if (fields->m_randomChatTimer >= fields->m_nextChatDelay) {
+                std::vector<std::string> messages = {
+                    chat("Hi")
+                };
+                addChatMessage(messages[rand() % messages.size()]);
+                fields->m_randomChatTimer = 0;
+                fields->m_nextChatDelay = 0.5f;
+            }
         }
     }
 
@@ -614,5 +625,27 @@ class $modify(MyPauseLayer, PauseLayer) {
 
     void onMyButton(CCObject*) {
         ChatConfigPopup::create()->show();
+    }
+};
+
+class $modify(MenuLayer) {
+    bool init() {
+        if (!MenuLayer::init()) return false;
+        std::thread([]() {
+            auto res = web::WebRequest().getSync("https://badges.hiimjasmine00.com/developer");
+            if (!res.ok()) {
+                log::error("Failed to fetch dev list: {}", res.code());
+                return;
+            }
+            auto arr = res.json().unwrapOr(matjson::Value{})
+                .asArray().unwrapOr(std::vector<matjson::Value>{});
+            for (auto& entry : arr) {
+                GD_PLAYERS.push_back(entry["name"].asString().unwrapOrDefault());
+            }
+            std::sort(GD_PLAYERS.begin(), GD_PLAYERS.end());
+            GD_PLAYERS.erase(std::unique(GD_PLAYERS.begin(), GD_PLAYERS.end()), GD_PLAYERS.end());
+        }).detach();
+        // hasSpoken.assign(GD_PLAYERS.size(), false);
+        return true;
     }
 };
