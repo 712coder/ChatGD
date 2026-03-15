@@ -1,5 +1,7 @@
 # ChatGD Changelog
-## v1.0.2
+## v1.1.0
+- improved ui heavily
+- added more messages and users
 - removed GUITARPEDOSTYLES at the request of dominokiddoo
 - added icon creator credits
 - added every single geode mod dev to the list of chatters also at the request of dominokiddoo
