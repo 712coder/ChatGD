@@ -22,8 +22,8 @@ static std::vector<std::string> GD_PLAYERS = {
 };
 
 // static std::vector<bool> hasSpoken;
-static const float CHAT_WIDTH = 155.0f;
-static const float CHAT_HEIGHT = 190.0f;
+static const float CHAT_WIDTH = 135.0f;
+static const float CHAT_HEIGHT = 170.0f;
 static const float HEADER_HEIGHT = 16.0f;
 static const float MSG_AREA_HEIGHT = CHAT_HEIGHT - HEADER_HEIGHT;
 static const float MSG_LINE_HEIGHT = 11.0f;

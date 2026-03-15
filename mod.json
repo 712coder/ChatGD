@@ -9,7 +9,10 @@
 	"id": "memeking16.chatgd",
 	"name": "ChatGD",
 	"version": "v1.1.0",
-	"developer": "MEMEKING16, Axiom",
+	"developers": [
+		"MEMEKING16",
+		"Axiom"
+	],
 	"description": "A mod that adds a chat as if you were live streaming",
 	"dependencies": {
         "geode.node-ids": ">=v1.23.0"
