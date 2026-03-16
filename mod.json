@@ -34,6 +34,12 @@
             "name": "Enabled in practice mode",
             "type": "bool",
             "default": false
-        }
+        },
+		"custom-chatters": {
+			"type": "string",
+			"default": "",
+			"name": "Custom Chatters",
+			"description": "list of custom chatters that u want added to the chat seperated by spaces"
+		}
     }
 }

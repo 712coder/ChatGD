@@ -636,6 +636,14 @@ class $modify(MenuLayer) {
                 GD_PLAYERS.push_back(entry["name"].asString().unwrapOrDefault());
             }
             std::sort(GD_PLAYERS.begin(), GD_PLAYERS.end());
+
+            auto raw = Mod::get()->getSettingValue<std::string>("custom-custom-chatters");
+            std::stringstream ss(raw);
+            std::string name;
+            while (std::getline(ss, name, ' ')) {
+                if (!name.empty()) GD_PLAYERS.push_back(name);
+            }
+
             GD_PLAYERS.erase(std::unique(GD_PLAYERS.begin(), GD_PLAYERS.end()), GD_PLAYERS.end());
         }).detach();
         // hasSpoken.assign(GD_PLAYERS.size(), false);
