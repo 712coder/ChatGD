@@ -6,6 +6,7 @@
 - added icon creator credits
 - added every single geode mod dev to the list of chatters also at the request of dominokiddoo
 - customizable gg %
+- customizable chatters
 ## v1.0.1
 - Removed debug logs
 - Fixed readme
