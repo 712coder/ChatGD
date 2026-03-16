@@ -211,6 +211,7 @@ class $modify(MyPlayLayer, PlayLayer) {
         float holdPercent = 22.0f;
         float goPercent = 37.0f;
         float superGoPercent = 80.0f;
+        float ggPercent = 99.9999f;
         int att = 0;
         bool enabled = true;
         bool m_echoClipPresent = false;
@@ -227,6 +228,7 @@ public:
         fields->holdPercent = loadPercentForLevel(m_level->m_levelID, "hold-percent", 22.0f);
         fields->goPercent = loadPercentForLevel(m_level->m_levelID, "go-percent", 37.0f);
         fields->superGoPercent = loadPercentForLevel(m_level->m_levelID, "supergo-percent", 80.0f);
+        fields->ggPercent = loadPercentForLevel(m_level->m_levelID, "gg-percent", 99.9999f);
         fields->enabled = loadDisabledForLevel(m_level->m_levelID, "enabled", true);
     }
 
@@ -495,7 +497,7 @@ public:
             }
         }
         // super go
-        else if (progress >= fields->superGoPercent && progress < 99.9999f) {
+        else if (progress >= fields->superGoPercent && progress < fields->ggPercent) {
             fields->m_randomChatTimer += dt;
             if (fields->m_randomChatTimer >= fields->m_nextChatDelay) {
                 std::vector<std::string> messages = {
@@ -523,7 +525,7 @@ public:
             }
         }
         // 100%: gg
-        else if (progress > 99.9999f) {
+        else if (progress > fields->ggPercent) {
             fields->m_randomChatTimer += dt;
             if (fields->m_randomChatTimer >= fields->m_nextChatDelay) {
                 std::vector<std::string> messages = {
@@ -548,16 +550,6 @@ public:
                 addChatMessage(messages[rand() % messages.size()]);
                 fields->m_randomChatTimer = 0;
                 fields->m_nextChatDelay = 0.1f + (rand() % 3) / 10.0f;
-            }
-        } else {
-            fields->m_randomChatTimer += dt;
-            if (fields->m_randomChatTimer >= fields->m_nextChatDelay) {
-                std::vector<std::string> messages = {
-                    chat("Hi")
-                };
-                addChatMessage(messages[rand() % messages.size()]);
-                fields->m_randomChatTimer = 0;
-                fields->m_nextChatDelay = 0.5f;
             }
         }
     }

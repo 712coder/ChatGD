@@ -15,6 +15,7 @@ protected:
     geode::TextInput* m_textInput1 = nullptr;
     geode::TextInput* m_textInput2 = nullptr;
     geode::TextInput* m_textInput3 = nullptr;
+    geode::TextInput* m_textInput4 = nullptr;
     CCMenuItemToggler* m_enableToggle = nullptr;
 
     bool init(float width, float height);
