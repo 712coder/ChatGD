@@ -8,6 +8,7 @@ using namespace geode::prelude;
 std::string levelKey(int levelID, const char* suffix);
 float loadPercentForLevel(int levelID, const char* suffix, float defaultValue);
 bool loadDisabledForLevel(int levelID, const char* suffix, bool defaultValue);
+void reloadPlayLayerThresholds();
 
 class ChatConfigPopup : public geode::Popup {
 protected:

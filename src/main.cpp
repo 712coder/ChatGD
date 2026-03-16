@@ -372,7 +372,7 @@ public:
         auto fields = m_fields.self();
         float progress = this->getCurrentPercent();
         bool inPractice = this->m_isPracticeMode && !Mod::get()->getSettingValue<bool>("enabled-in-practice");
-        bool visible = !inPractice && fields->enabled;
+        bool visible = !inPractice && !fields->enabled;
         fields->m_chatRoot->setVisible(visible);
 
         if (!visible) return;
@@ -650,3 +650,8 @@ class $modify(MenuLayer) {
         return true;
     }
 };
+
+void reloadPlayLayerThresholds() {
+    if (auto pl = PlayLayer::get())
+        static_cast<MyPlayLayer*>(pl)->reloadThresholds();
+}

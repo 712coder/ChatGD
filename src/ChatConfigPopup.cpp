@@ -121,6 +121,7 @@ void ChatConfigPopup::onClose(CCObject* sender) {
     if (m_enableToggle)
         Mod::get()->setSavedValue(levelKey(levelID, "enabled"), !m_enableToggle->isToggled());
 
+    reloadPlayLayerThresholds();
 
     geode::Popup::onClose(sender);
 }
