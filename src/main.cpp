@@ -213,7 +213,7 @@ class $modify(MyPlayLayer, PlayLayer) {
         float superGoPercent = 80.0f;
         float ggPercent = 99.9999f;
         int att = 0;
-        bool enabled = true;
+        bool enabled = false;
         bool m_echoClipPresent = false;
         bool m_clipMessageFired = false;
         float m_bestPercent = 0.0f;
@@ -229,7 +229,7 @@ public:
         fields->goPercent = loadPercentForLevel(m_level->m_levelID, "go-percent", 37.0f);
         fields->superGoPercent = loadPercentForLevel(m_level->m_levelID, "supergo-percent", 80.0f);
         fields->ggPercent = loadPercentForLevel(m_level->m_levelID, "gg-percent", 99.9999f);
-        fields->enabled = loadDisabledForLevel(m_level->m_levelID, "enabled", true);
+        fields->enabled = loadDisabledForLevel(m_level->m_levelID, "enabled", false);
     }
 
     bool init(GJGameLevel* level, bool useReplay, bool dontCreateObjects) {
@@ -243,8 +243,8 @@ public:
 
         auto winSize = CCDirector::sharedDirector()->getWinSize();
 
-        float chatX = winSize.width - CHAT_WIDTH - 5.0f;
-        float chatY = 5.0f;
+        float chatX = winSize.width - CHAT_WIDTH - 5.0f + Mod::get()->getSettingValue<int>("x-off");
+        float chatY = 5.0f + Mod::get()->getSettingValue<int>("y-off");
 
         // chat root node
         fields->m_chatRoot = CCNode::create();

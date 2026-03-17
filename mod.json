@@ -40,6 +40,16 @@
 			"default": "",
 			"name": "Custom Chatters",
 			"description": "list of custom chatters that u want added to the chat seperated by spaces"
+		},
+		"x-off": {
+			"type": "int",
+			"default": 0,
+			"name": "Chat x offset"
+		},
+		"y-off": {
+			"type": "int",
+			"default": 0,
+			"name": "Chat y offset"
 		}
     }
 }
