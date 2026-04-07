@@ -50,6 +50,11 @@
 			"type": "int",
 			"default": 0,
 			"name": "Chat y offset"
+		},
+		"viewer-count": {
+			"type": "int",
+			"default": 100,
+			"name": "Viewer Count"
 		}
     }
 }

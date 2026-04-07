@@ -224,6 +224,7 @@ class $modify(MyPlayLayer, PlayLayer) {
         float m_bestPercent = 0.0f;
         float m_idleChatTimer = 0.0f;
         float m_nextIdleDelay = 2.8f;
+        int m_numViewers = 69;
     };
 
 public:
@@ -235,6 +236,7 @@ public:
         fields->superGoPercent = loadPercentForLevel(m_level->m_levelID, "supergo-percent", 80.0f);
         fields->ggPercent = loadPercentForLevel(m_level->m_levelID, "gg-percent", 99.9999f);
         fields->enabled = loadDisabledForLevel(m_level->m_levelID, "enabled", false);
+        fields->m_numViewers = Mod::get()->getSettingValue<int>("viewer-count");
     }
 
     bool init(GJGameLevel* level, bool useReplay, bool dontCreateObjects) {
@@ -286,6 +288,14 @@ public:
         fields->m_headerLabel->setColor({255, 255, 255});
         fields->m_headerLabel->setAnchorPoint({0.0f, 0.5f});
         fields->m_headerLabel->setPosition({CHAT_PADDING + 24.0f, CHAT_HEIGHT - HEADER_HEIGHT / 2.0f});
+        fields->m_chatRoot->addChild(fields->m_headerLabel);
+
+        // viewer count
+        fields->m_headerLabel = CCLabelBMFont::create(std::to_string(fields->m_numViewers).c_str(), "bigFont.fnt"); // this is stupid... for the reviewing staff pls give a better way to do ts (i am very sorry if this causes you pain)
+        fields->m_headerLabel->setScale(0.22f);
+        fields->m_headerLabel->setColor({151, 18, 17});
+        fields->m_headerLabel->setAnchorPoint({0.0f, 0.5f});
+        fields->m_headerLabel->setPosition({CHAT_WIDTH - 35.0f, CHAT_HEIGHT - HEADER_HEIGHT / 2.0f});
         fields->m_chatRoot->addChild(fields->m_headerLabel);
 
         // msg container
@@ -474,7 +484,7 @@ public:
                 addChatMessage(messages[rand() % messages.size()]);
                 fields->m_randomChatTimer = 0;
                 float t = (progress - fields->holdPercent) / (fields->goPercent - fields->holdPercent);
-                fields->m_nextChatDelay = 0.2f - (t * 0.067f);
+                fields->m_nextChatDelay = 0.2f - (t * 0.067f) / 100.0f * fields->m_numViewers; // DONT ASK WHY IT JUST IS
             }
         }
         // gooo
@@ -500,7 +510,7 @@ public:
                 addChatMessage(messages[rand() % messages.size()]);
                 fields->m_randomChatTimer = 0;
                 float t = (progress - fields->goPercent) / (fields->superGoPercent - fields->goPercent);
-                fields->m_nextChatDelay = 0.133f - (t * 0.033f);
+                fields->m_nextChatDelay = 0.133f - (t * 0.033f) / 100.0f * fields->m_numViewers;
             }
         }
         // super go
@@ -528,7 +538,7 @@ public:
                 addChatMessage(messages[rand() % messages.size()]);
                 fields->m_randomChatTimer = 0;
                 float t = (progress - fields->superGoPercent) / (99.9999f - fields->superGoPercent);
-                fields->m_nextChatDelay = 0.1f - (t * 0.033f);
+                fields->m_nextChatDelay = 0.1f - (t * 0.033f) / 100.0f * fields->m_numViewers;
             }
         }
         // 100%: gg
@@ -556,7 +566,7 @@ public:
                 };
                 addChatMessage(messages[rand() % messages.size()]);
                 fields->m_randomChatTimer = 0;
-                fields->m_nextChatDelay = 0.033f + (rand() % 18) / 1000.0f;
+                fields->m_nextChatDelay = 0.033f + (rand() % 18) / 1000.0f / 100.0f * fields->m_numViewers;
             }
         }
     }
@@ -591,7 +601,7 @@ public:
             fields->m_isDeathSpamming = true;
             float t = progress / 100.0f;
             fields->m_deathSpamDuration = 2.0f + (t * t * 12.0f);
-            fields->m_nextChatDelay = 0.5f - (t * 0.49f);
+            fields->m_nextChatDelay = 0.5f - (t * 0.49f) / 100 * fields->m_numViewers;
         }
         fields->att += 1;
         fields->m_clipMessageFired = false;
