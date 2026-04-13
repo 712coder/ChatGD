@@ -1,4 +1,7 @@
 # ChatGD Changelog
+## v1.1.1
+- you cant make viewer count negative anymore
+- put a proper name for enabled on default
 ## v1.1.0
 - improved ui heavily
 - added more messages and users
@@ -7,7 +10,7 @@
 - added every single geode mod dev to the list of chatters also at the request of dominokiddoo
 - customizable gg %
 - customizable chatters
-- chat on by default
+- chat on by default (can change in global settings)
 - customizable chat pos
 - viewer count thats customizable
 ## v1.0.1

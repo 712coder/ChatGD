@@ -8,7 +8,7 @@
 	},
 	"id": "memeking16.chatgd",
 	"name": "ChatGD",
-	"version": "v1.1.0",
+	"version": "v1.1.1",
 	"developers": [
 		"MEMEKING16",
 		"Axiom"
@@ -36,25 +36,31 @@
             "default": false
         },
 		"custom-chatters": {
+			"name": "Custom Chatters",
 			"type": "string",
 			"default": "",
-			"name": "Custom Chatters",
 			"description": "list of custom chatters that u want added to the chat seperated by spaces"
 		},
 		"x-off": {
+			"name": "Chat x offset",
 			"type": "int",
-			"default": 0,
-			"name": "Chat x offset"
+			"default": 0
 		},
 		"y-off": {
+			"name": "Chat y offset",
 			"type": "int",
-			"default": 0,
-			"name": "Chat y offset"
+			"default": 0
 		},
 		"viewer-count": {
+			"name": "Viewer Count",
 			"type": "int",
 			"default": 100,
-			"name": "Viewer Count"
+			"min": 0
+		},
+		"enabled-by-default": {
+			"name": "Is Enabled by Default",
+			"type": "bool",
+			"default": true
 		}
     }
 }
