@@ -235,7 +235,7 @@ public:
         fields->goPercent = loadPercentForLevel(m_level->m_levelID, "go-percent", 37.0f);
         fields->superGoPercent = loadPercentForLevel(m_level->m_levelID, "supergo-percent", 80.0f);
         fields->ggPercent = loadPercentForLevel(m_level->m_levelID, "gg-percent", 99.9999f);
-        fields->enabled = loadDisabledForLevel(m_level->m_levelID, "enabled", false);
+        fields->enabled = loadDisabledForLevel(m_level->m_levelID, "enabled", Mod::get()->getSettingValue<int>("enabled-by-default"));
         fields->m_numViewers = Mod::get()->getSettingValue<int>("viewer-count");
     }
 

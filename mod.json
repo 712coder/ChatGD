@@ -36,25 +36,30 @@
             "default": false
         },
 		"custom-chatters": {
+			"name": "Custom Chatters",
 			"type": "string",
 			"default": "",
-			"name": "Custom Chatters",
 			"description": "list of custom chatters that u want added to the chat seperated by spaces"
 		},
 		"x-off": {
+			"name": "Chat x offset",
 			"type": "int",
-			"default": 0,
-			"name": "Chat x offset"
+			"default": 0
 		},
 		"y-off": {
+			"name": "Chat y offset",
 			"type": "int",
-			"default": 0,
-			"name": "Chat y offset"
+			"default": 0
 		},
 		"viewer-count": {
+			"name": "Viewer Count",
 			"type": "int",
-			"default": 100,
-			"name": "Viewer Count"
+			"default": 100
+		},
+		"enabled-by-default": {
+			"name": "Viewer Count",
+			"type": "bool",
+			"default": true
 		}
     }
 }
