@@ -54,8 +54,7 @@
 		"viewer-count": {
 			"name": "Viewer Count",
 			"type": "int",
-			"default": 100,
-			"min": 0
+			"default": 100
 		},
 		"enabled-by-default": {
 			"name": "Is Enabled by Default",

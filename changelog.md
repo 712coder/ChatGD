@@ -1,4 +1,6 @@
 # ChatGD Changelog
+## v1.1.2
+- you can make viewer count negative again... why do yall want this back :sob:
 ## v1.1.1
 - you cant make viewer count negative anymore
 - put a proper name for enabled on default
