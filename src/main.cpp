@@ -236,7 +236,7 @@ public:
         fields->superGoPercent = loadPercentForLevel(m_level->m_levelID, "supergo-percent", 80.0f);
         fields->ggPercent = loadPercentForLevel(m_level->m_levelID, "gg-percent", 99.9999f);
         fields->enabled = loadDisabledForLevel(m_level->m_levelID, "enabled", Mod::get()->getSettingValue<int>("enabled-by-default"));
-        fields->m_numViewers = abs(Mod::get()->getSettingValue<int>("viewer-count"));
+        fields->m_numViewers = Mod::get()->getSettingValue<int>("viewer-count");
     }
 
     bool init(GJGameLevel* level, bool useReplay, bool dontCreateObjects) {
@@ -484,7 +484,7 @@ public:
                 addChatMessage(messages[rand() % messages.size()]);
                 fields->m_randomChatTimer = 0;
                 float t = (progress - fields->holdPercent) / (fields->goPercent - fields->holdPercent);
-                fields->m_nextChatDelay = 0.2f - (t * 0.067f) / 100.0f * fields->m_numViewers; // DONT ASK WHY IT JUST IS
+                fields->m_nextChatDelay = 0.2f - (t * 0.067f) / 100.0f * abs(fields->m_numViewers); // DONT ASK WHY IT JUST IS
             }
         }
         // gooo
@@ -510,7 +510,7 @@ public:
                 addChatMessage(messages[rand() % messages.size()]);
                 fields->m_randomChatTimer = 0;
                 float t = (progress - fields->goPercent) / (fields->superGoPercent - fields->goPercent);
-                fields->m_nextChatDelay = 0.133f - (t * 0.033f) / 100.0f * fields->m_numViewers;
+                fields->m_nextChatDelay = 0.133f - (t * 0.033f) / 100.0f * abs(fields->m_numViewers);
             }
         }
         // super go
@@ -538,7 +538,7 @@ public:
                 addChatMessage(messages[rand() % messages.size()]);
                 fields->m_randomChatTimer = 0;
                 float t = (progress - fields->superGoPercent) / (99.9999f - fields->superGoPercent);
-                fields->m_nextChatDelay = 0.1f - (t * 0.033f) / 100.0f * fields->m_numViewers;
+                fields->m_nextChatDelay = 0.1f - (t * 0.033f) / 100.0f * abs(fields->m_numViewers);
             }
         }
         // 100%: gg
@@ -566,7 +566,7 @@ public:
                 };
                 addChatMessage(messages[rand() % messages.size()]);
                 fields->m_randomChatTimer = 0;
-                fields->m_nextChatDelay = 0.033f + (rand() % 18) / 1000.0f / 100.0f * fields->m_numViewers;
+                fields->m_nextChatDelay = 0.033f + (rand() % 18) / 1000.0f / 100.0f * abs(fields->m_numViewers);
             }
         }
     }
@@ -601,7 +601,7 @@ public:
             fields->m_isDeathSpamming = true;
             float t = progress / 100.0f;
             fields->m_deathSpamDuration = 2.0f + (t * t * 12.0f);
-            fields->m_nextChatDelay = 0.5f - (t * 0.49f) / 100 * fields->m_numViewers;
+            fields->m_nextChatDelay = 0.5f - (t * 0.49f) / 100 * abs(fields->m_numViewers);
         }
         fields->att += 1;
         fields->m_clipMessageFired = false;
