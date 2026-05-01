@@ -448,7 +448,8 @@ public:
                     };
                     addChatMessage(deathMessages[rand() % deathMessages.size()]);
                     fields->m_randomChatTimer = 0;
-                } else {
+                }
+            } else if (fields->m_lastAttPercent > (float)fields->m_lvl->getNormalPercent()) {
                     fields->m_randomChatTimer += dt;
                     if (fields->m_randomChatTimer >= fields->m_nextChatDelay) {
                         std::vector<std::string> messages = {
@@ -464,12 +465,7 @@ public:
                         fields->m_nextChatDelay = 0.133f - (t * 0.033f) / 100.0f * abs(fields->m_numViewers);
                     }
                 }
-            }
             return;
-        }
-
-        if (progress > fields->m_bestPercent) {
-            fields->m_bestPercent = progress;
         }
 
         if (fields->m_echoClipPresent && !fields->m_clipMessageFired) {
