@@ -225,6 +225,8 @@ class $modify(MyPlayLayer, PlayLayer) {
         float m_idleChatTimer = 0.0f;
         float m_nextIdleDelay = 2.8f;
         int m_numViewers = 69;
+        float m_lastAttPercent = 0.0f;
+        GJGameLevel* m_lvl;
         std::string m_font = "bigFont";
     };
 
@@ -248,6 +250,8 @@ public:
         this->reloadThresholds();
 
         auto fields = m_fields.self();
+        fields->m_lvl = level;
+        fields->m_bestPercent = (float)level->getNormalPercent();
         fields->m_echoClipPresent = Loader::get()->isModLoaded("axiom.echoclip");
 
         auto winSize = CCDirector::sharedDirector()->getWinSize();
@@ -396,6 +400,11 @@ public:
         bool visible = !inPractice && !fields->enabled;
         fields->m_chatRoot->setVisible(visible);
 
+        if (progress != 0.0f && !fields->m_isDeathSpamming) {
+            fields->m_lastAttPercent = progress;
+        }
+        
+
         if (!visible) return;
 
         // idle chat so box feels alive even during normal play
@@ -403,7 +412,7 @@ public:
         if (fields->m_idleChatTimer >= fields->m_nextIdleDelay && !fields->m_isDeathSpamming) {
             addChatMessage(chat(IDLE_MESSAGES[rand() % IDLE_MESSAGES.size()]));
             fields->m_idleChatTimer = 0.0f;
-            fields->m_nextIdleDelay = 2.0f + (rand() % 25) / 10.0f;
+            fields->m_nextIdleDelay = 1.4f + (rand() % 25) / 10.0f;
         }
 
         // NOOOOOOOO
@@ -412,7 +421,7 @@ public:
             if (fields->m_deathChatTimer >= fields->m_deathSpamDuration) {
                 fields->m_isDeathSpamming = false;
                 fields->m_deathChatTimer = 0;
-            } else {
+            } else if (fields->m_lastAttPercent <= (float)fields->m_lvl->getNormalPercent()) {
                 fields->m_randomChatTimer += dt;
                 if (fields->m_randomChatTimer >= fields->m_nextChatDelay) {
                     std::vector<std::string> deathMessages = {
@@ -440,12 +449,23 @@ public:
                     addChatMessage(deathMessages[rand() % deathMessages.size()]);
                     fields->m_randomChatTimer = 0;
                 }
-            }
+            } else if (fields->m_lastAttPercent > (float)fields->m_lvl->getNormalPercent()) {
+                    fields->m_randomChatTimer += dt;
+                    if (fields->m_randomChatTimer >= fields->m_nextChatDelay) {
+                        std::vector<std::string> messages = {
+                            chat("NEW BEST!!!!!"),
+                            chat("W NEW BEST!"),
+                            chat("W PROGRESS"),
+                            chat("GG NEW BEST"),
+                            chat("NEW BEST ALREADY?!?!"),
+                        };
+                        addChatMessage(messages[rand() % messages.size()]);
+                        fields->m_randomChatTimer = 0;
+                        float t = (progress - fields->goPercent) / (fields->superGoPercent - fields->goPercent);
+                        fields->m_nextChatDelay = 0.133f - (t * 0.033f) / 100.0f * abs(fields->m_numViewers);
+                    }
+                }
             return;
-        }
-
-        if (progress > fields->m_bestPercent) {
-            fields->m_bestPercent = progress;
         }
 
         if (fields->m_echoClipPresent && !fields->m_clipMessageFired) {

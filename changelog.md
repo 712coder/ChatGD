@@ -1,4 +1,6 @@
 # ChatGD Changelog
+## v1.2.0
+- new best msgs
 ## v1.1.2
 - you can make viewer count negative again... why do yall want this back :sob:
 - customizable font
