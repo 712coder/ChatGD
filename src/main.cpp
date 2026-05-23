@@ -219,6 +219,7 @@ class $modify(MyPlayLayer, PlayLayer) {
         float ggPercent = 99.9999f;
         int att = 0;
         bool enabled = false;
+        bool m_positiveChat = false;
         bool m_echoClipPresent = false;
         bool m_clipMessageFired = false;
         float m_bestPercent = 0.0f;
@@ -240,6 +241,7 @@ public:
         fields->superGoPercent = loadPercentForLevel(m_level->m_levelID, "supergo-percent", 80.0f);
         fields->ggPercent = loadPercentForLevel(m_level->m_levelID, "gg-percent", 99.9999f);
         fields->enabled = loadDisabledForLevel(m_level->m_levelID, "enabled", !Mod::get()->getSettingValue<bool>("enabled-by-default"));
+        fields->m_positiveChat = Mod::get()->getSettingValue<bool>("positive-chat");
         fields->m_numViewers = Mod::get()->getSettingValue<int>("viewer-count");
         fields->m_font = Mod::get()->getSettingValue<std::string>("font") + ".fnt";
         fields->m_opacity = Mod::get()->getSettingValue<float>("opacity");
@@ -432,28 +434,59 @@ public:
             } else if (fields->m_lastAttPercent <= (float)fields->m_lvl->getNormalPercent()) {
                 fields->m_randomChatTimer += dt;
                 if (fields->m_randomChatTimer >= fields->m_nextChatDelay) {
-                    std::vector<std::string> deathMessages = {
-                        chat("RIP"),
-                        chat("NOOOO"),
-                        chat("rippp"),
-                        chat("F"),
-                        chat("NOOOOOO"),
-                        chat("rip bozo"),
-                        chat("oof"),
-                        chat("so close"),
-                        chat("unlucky"),
-                        chat("F in chat"),
-                        chat("rip"),
-                        chat("noooo way"),
-                        chat("bro"),
-                        chat("that was so close"),
-                        chat("NOOOOOOOOOO"),
-                        chat("next attempt"),
-                        chat("you had it"),
-                        chat("almost"),
-                        chat("not like this"),
-                        chat("gg attempt"),
-                    };
+                    std::vector<std::string> deathMessages;
+                    if (m_fields->m_positiveChat) {
+                        // a more positive chat!
+                        deathMessages = {
+                            chat("W"),
+                            chat("WWWW"),
+                            chat("W RUN"),
+                            chat("Nice run!"),
+                            chat("W W W W W"),
+                            chat("NICE!"),
+                            chat("BRO YOU'RE SO GOOD"),
+                            chat("YOU'RE THE GOAT"),
+                            chat("Next Zoink fr?"),
+                            chat("YESSSS"),
+                            chat("WWWWWWWWWWWW"),
+                            chat("NOOOOOOOOOO"), // cuz even the most positive chat will have someone sad
+                            chat("dang it"),
+                            chat("nice!"),
+                            chat("consistency is key"),
+                            chat("crap"),
+                            chat("rip bozo"),
+                            chat("so close"),
+                            chat("nice attempt"),
+                            chat("gg attempt"),
+                            chat("skill issue :p"),
+                        };
+                    } else {
+                        // your usual chat
+                        deathMessages = {
+                            chat("RIP"),
+                            chat("NOOOO"),
+                            chat("rippp"),
+                            chat("F"),
+                            chat("NOOOOOO"),
+                            chat("rip bozo"),
+                            chat("oof"),
+                            chat("so close"),
+                            chat("unlucky"),
+                            chat("F in chat"),
+                            chat("rip"),
+                            chat("noooo way"),
+                            chat("bro"),
+                            chat("that was so close"),
+                            chat("NOOOOOOOOOO"),
+                            chat("next attempt"),
+                            chat("you had it"),
+                            chat("almost"),
+                            chat("not like this"),
+                            chat("gg attempt"),
+                            chat("skill issue :p"), // may or may not have been added by xblaze... oh well
+                        };
+                    }
+
                     addChatMessage(deathMessages[rand() % deathMessages.size()]);
                     fields->m_randomChatTimer = 0;
                 }
