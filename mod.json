@@ -41,6 +41,12 @@
 			"default": "",
 			"description": "list of custom chatters that u want added to the chat seperated by spaces"
 		},
+		"positive-chat": {
+			"type": "bool",
+			"name": "Positive Chat",
+			"description": "Makes the chat more positive! We need more positivity around here :)\n\n<cb>Feature by XblazeGMD</c>",
+			"default": false
+		},
 		"x-off": {
 			"name": "Chat x offset",
 			"type": "int",
