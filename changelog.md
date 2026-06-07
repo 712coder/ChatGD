@@ -1,4 +1,8 @@
 # ChatGD Changelog
+## v1.4.0
+- fix enabled-by-default
+- positivity
+- updated geode
 ## v1.3.0
 - customizable opacity
 ## v1.2.0
