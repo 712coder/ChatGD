@@ -16,7 +16,7 @@ static std::vector<std::string> GD_PLAYERS = {
     "Npesta", "xanii", "BTD6", "Cataclysm",
     "Krazyman50", "Zobros", "Sea1997", "Pennutoh", "FunnyGame",
     "TrusTa", "RicoLP", "ViPriN", "ChaSe", "Lemons",
-    "Vortrox",
+    "Vortrox", "Triaxis",
     // Contributors
     "Axiom", "Human", "siniNight"
 };
