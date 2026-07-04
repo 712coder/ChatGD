@@ -75,6 +75,13 @@ static std::string chat(const std::string& msg) {
     return randomPlayer() + ": " + msg;
 }
 
+std::string to_upper(std::string str) {
+    std::ranges::transform(str, str.begin(), [](unsigned char c) {
+        return std::toupper(c);
+    });
+    return str;
+}
+
 static std::string wrapText(const std::string& msg, int maxChars = 25, int firstLineOffset = 0) {
     std::string result;
     int lineLen = firstLineOffset;
@@ -152,7 +159,7 @@ static const std::vector<std::string> IDLE_MESSAGES = {
     "monkaS",
     "prayge",
     "copium",
-    "he's actually doing it",
+    // "he's actually doing it",
     "no shot",
     "bro woke up",
     "diff",
@@ -167,15 +174,15 @@ static const std::vector<std::string> IDLE_MESSAGES = {
     "not missing",
     "clean inputs",
     "GG EZ",
-    "he's built different",
+    // "he's built different",
     "W grinder",
     "insane player",
     "demon time",
-    "he's not stopping",
+    // "he's not stopping",
 };
 
 static const std::vector<std::string> START_MESSAGES = {
-    "he's starting",
+    // "he's starting",
     "here we go",
     "attempt time",
     "lets see it",
@@ -190,7 +197,7 @@ static const std::vector<std::string> START_MESSAGES = {
     "back at it",
     "W attempt pls",
     "another one",
-    "let him cook",
+    // "let "+fields->m_him+" cook",
     "cooking rn",
     "o7",
     "real",
@@ -230,6 +237,8 @@ class $modify(MyPlayLayer, PlayLayer) {
         float m_opacity = 1.0f;
         GJGameLevel* m_lvl;
         std::string m_font = "bigFont";
+        std::string m_he = "he";
+        std::string m_him = "him";
     };
 
 public:
@@ -245,6 +254,8 @@ public:
         fields->m_numViewers = Mod::get()->getSettingValue<int>("viewer-count");
         fields->m_font = Mod::get()->getSettingValue<std::string>("font") + ".fnt";
         fields->m_opacity = Mod::get()->getSettingValue<float>("opacity");
+        fields->m_he = Mod::get()->getSettingValue<std::string>("he");
+        fields->m_him = Mod::get()->getSettingValue<std::string>("him");
     }
 
     bool init(GJGameLevel* level, bool useReplay, bool dontCreateObjects) {
@@ -561,14 +572,14 @@ public:
                     chat("GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"),
                     chat("GO GO GO GO"),
                     chat("YESYESYES"),
-                    chat("HES GOING"),
+                    chat(to_upper(fields->m_he)+"S GOING"),
                     chat("ACTUALLY GOING"),
                     chat("DO NOT MISS"),
                     chat("CMON CMON CMON"),
                     chat("W W W W W"),
                     chat("LETSSSSS GOOOOO"),
                     chat("clean"),
-                    chat("he is NOT dropping"),
+                    chat(fields->m_he+" is NOT dropping"),
                 };
                 addChatMessage(messages[rand() % messages.size()]);
                 fields->m_randomChatTimer = 0;
@@ -614,7 +625,7 @@ public:
                     chat("WWWWWWWWWWWWWWWWWWWWWWWW"),
                     chat("LETS GOOOOO"),
                     chat("WOOOOOOOOOOOOO"),
-                    chat("HE DID IT"),
+                    chat(to_upper(fields->m_he)+" DID IT"),
                     chat("NO WAY BRO"),
                     chat("ACTUAL W"),
                     chat("POGGERS"),

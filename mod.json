@@ -89,6 +89,16 @@
 				"slider-step": 0.05,
 				"input": false
 			}
+		},
+		"he": {
+			"name": "Replacement for he",
+			"type": "string",
+			"default": "he"
+		},
+		"him": {
+			"name": "Replacement for him",
+			"type": "string",
+			"default": "him"
 		}
     }
 }
