@@ -18,7 +18,7 @@ static std::vector<std::string> GD_PLAYERS = {
     "TrusTa", "RicoLP", "ViPriN", "ChaSe", "Lemons",
     "Vortrox", "Triaxis",
     // Contributors
-    "Axiom", "Human", "siniNight"
+    "Axiom", "Human", "siniNight", "xblaze"
 };
 
 // static std::vector<bool> hasSpoken;
