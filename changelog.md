@@ -3,6 +3,7 @@
 - fix enabled-by-default
 - positivity
 - updated geode
+- other stuff
 ## v1.3.0
 - customizable opacity
 ## v1.2.0
