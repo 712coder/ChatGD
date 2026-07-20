@@ -394,9 +394,7 @@ public:
         PlayLayer::update(dt);
         auto fields = m_fields.self();
 
-        if (!this->m_gameState.m_isPlaying) {
-            return;
-        }
+        
 
         float progress = this->getCurrentPercent();
 
@@ -428,7 +426,7 @@ public:
 
         if (!fields->enabled) return;
 
-        if (this->m_level->m_practiceMode && !Mod::get()->getSettingValue<bool>("enabled-in-practice")) {
+        if (this->m_isPracticeMode && !Mod::get()->getSettingValue<bool>("enabled-in-practice")) {
             return;
         }
 
